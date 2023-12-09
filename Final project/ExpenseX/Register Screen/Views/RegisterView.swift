@@ -8,78 +8,106 @@
 import UIKit
 
 class RegisterView: UIView {
-    var textFieldName: UITextField!
-    var textFieldEmail: UITextField!
-    var textFieldPassword: UITextField!
-    var buttonRegister: UIButton!
-    
-    override init(frame: CGRect){
+    let logoImageView = UIImageView()
+    let createAccountLabel = UILabel()
+    let nameTextField = UITextField()
+    let emailTextField = UITextField()
+    let passwordTextField = UITextField()
+    let confirmPasswordTextField = UITextField()
+    let signUpButton = UIButton()
+
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
-        setuptextFieldName()
-        setuptextFieldEmail()
-        setuptextFieldPassword()
-        setupbuttonRegister()
-        
-        initConstraints()
-    }
-    
-    func setuptextFieldName(){
-        textFieldName = UITextField()
-        textFieldName.placeholder = "Name"
-        textFieldName.keyboardType = .default
-        textFieldName.borderStyle = .roundedRect
-        textFieldName.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(textFieldName)
-    }
-    
-    func setuptextFieldEmail(){
-        textFieldEmail = UITextField()
-        textFieldEmail.placeholder = "Email"
-        textFieldEmail.keyboardType = .emailAddress
-        textFieldEmail.borderStyle = .roundedRect
-        textFieldEmail.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(textFieldEmail)
-    }
-    
-    func setuptextFieldPassword(){
-        textFieldPassword = UITextField()
-        textFieldPassword.placeholder = "Password"
-        textFieldPassword.textContentType = .password
-        textFieldPassword.isSecureTextEntry = true
-        textFieldPassword.borderStyle = .roundedRect
-        textFieldPassword.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(textFieldPassword)
-    }
-    
-    func setupbuttonRegister(){
-        buttonRegister = UIButton(type: .system)
-        buttonRegister.setTitle("Register", for: .normal)
-        buttonRegister.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        buttonRegister.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(buttonRegister)
-    }
-    
-    func initConstraints(){
-        NSLayoutConstraint.activate([
-            textFieldName.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 32),
-            textFieldName.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            textFieldName.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
-            
-            textFieldEmail.topAnchor.constraint(equalTo: textFieldName.bottomAnchor, constant: 16),
-            textFieldEmail.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            textFieldEmail.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
-            
-            textFieldPassword.topAnchor.constraint(equalTo: textFieldEmail.bottomAnchor, constant: 16),
-            textFieldPassword.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            textFieldPassword.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
-            
-            buttonRegister.topAnchor.constraint(equalTo: textFieldPassword.bottomAnchor, constant: 32),
-            buttonRegister.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-        ])
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setupViews()
+    }
+
+    private func setupViews() {
+        backgroundColor = .white
+        
+        // Logo ImageView Setup
+        logoImageView.contentMode = .scaleAspectFit
+        logoImageView.image = UIImage(named: "logo") // Replace "logo" with your image asset name
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(logoImageView)
+        
+        // Create Account Label Setup
+        createAccountLabel.text = "Create your Account"
+        createAccountLabel.textAlignment = .center
+        createAccountLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        createAccountLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(createAccountLabel)
+
+        // Name TextField Setup
+        setupTextField(nameTextField, placeholder: "Name")
+
+        // Email TextField Setup
+        setupTextField(emailTextField, placeholder: "Email")
+
+        // Password TextField Setup
+        setupTextField(passwordTextField, placeholder: "Password", isSecure: true)
+        
+        // Confirm Password TextField Setup
+        setupTextField(confirmPasswordTextField, placeholder: "Confirm Password", isSecure: true)
+
+        // Sign Up Button Setup
+        signUpButton.setTitle("Sign up", for: .normal)
+        signUpButton.backgroundColor = .blue
+        signUpButton.layer.cornerRadius = 5
+        signUpButton.layer.shadowColor = UIColor.black.cgColor
+        signUpButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        signUpButton.layer.shadowRadius = 4
+        signUpButton.layer.shadowOpacity = 0.5
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(signUpButton)
+        
+        // Auto Layout Constraints
+        setConstraints()
+    }
+    
+    private func setupTextField(_ textField: UITextField, placeholder: String, isSecure: Bool = false) {
+        textField.placeholder = placeholder
+        textField.borderStyle = .roundedRect
+        textField.isSecureTextEntry = isSecure
+        textField.autocapitalizationType = .none
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(textField)
+    }
+    
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
+            logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            logoImageView.heightAnchor.constraint(equalToConstant: 120),
+            logoImageView.widthAnchor.constraint(equalToConstant: 120),
+            
+            createAccountLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 30),
+            createAccountLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            nameTextField.topAnchor.constraint(equalTo: createAccountLabel.bottomAnchor, constant: 20),
+            nameTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            nameTextField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            
+            emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20),
+            emailTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            emailTextField.widthAnchor.constraint(equalTo: nameTextField.widthAnchor),
+            
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+            passwordTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            passwordTextField.widthAnchor.constraint(equalTo: emailTextField.widthAnchor),
+            
+            confirmPasswordTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            confirmPasswordTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            confirmPasswordTextField.widthAnchor.constraint(equalTo: passwordTextField.widthAnchor),
+            
+            signUpButton.topAnchor.constraint(equalTo: confirmPasswordTextField.bottomAnchor, constant: 30),
+            signUpButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            signUpButton.widthAnchor.constraint(equalTo: confirmPasswordTextField.widthAnchor),
+            signUpButton.heightAnchor.constraint(equalToConstant: 50),
+        ])
     }
 }

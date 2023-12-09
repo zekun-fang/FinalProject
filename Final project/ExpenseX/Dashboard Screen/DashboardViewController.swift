@@ -36,6 +36,7 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
         dashboardView.transactionFilterSegmentedControl.addTarget(self, action: #selector(transactionFilterChanged(_:)), for: .valueChanged)
         dashboardView.navigationBar.delegate = self
        
+        navigationItem.hidesBackButton = true
     }
     
 

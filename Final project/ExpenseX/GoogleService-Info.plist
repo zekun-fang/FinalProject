@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.zekun.APP12</string>
+	<string>com.example.zekun.ExpenseX</string>
 	<key>PROJECT_ID</key>
 	<string>ios-test-25efc</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:768118890311:ios:7df15adc5cba5259cdf662</string>
+	<string>1:768118890311:ios:c04d2c2345fae680cdf662</string>
 </dict>
 </plist>

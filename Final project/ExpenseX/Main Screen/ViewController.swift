@@ -79,8 +79,8 @@ class ViewController: UIViewController {
     
     @objc func dashboardButtonTapped() {
         // Instantiate DashboardViewController and push it onto the navigation stack
-        let dashboardVC = DashboardViewController()
-        navigationController?.pushViewController(dashboardVC, animated: true)
+        let loginVC = LoginViewController()
+        navigationController?.pushViewController(loginVC, animated: true)
     }
     
     

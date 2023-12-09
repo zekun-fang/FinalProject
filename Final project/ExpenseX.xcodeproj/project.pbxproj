@@ -7,13 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84456ECC2B2483AF00400117 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84456ECB2B2483AF00400117 /* GoogleService-Info.plist */; };
+		84456ECF2B248E8D00400117 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84456ECE2B248E8D00400117 /* LoginView.swift */; };
+		84456ED12B248F4300400117 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84456ED02B248F4300400117 /* LoginViewController.swift */; };
+		84456ED32B24915300400117 /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 84456ED22B24915300400117 /* appstore.png */; };
+		84456ED52B24A01000400117 /* LoginProgreeIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84456ED42B24A01000400117 /* LoginProgreeIndicatorManager.swift */; };
+		84456ED82B24A81E00400117 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84456ED72B24A81E00400117 /* logo.png */; };
 		84C2E1EB2B0AF16E00B47C27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E1EA2B0AF16E00B47C27 /* AppDelegate.swift */; };
 		84C2E1ED2B0AF16E00B47C27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E1EC2B0AF16E00B47C27 /* SceneDelegate.swift */; };
 		84C2E1EF2B0AF16E00B47C27 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E1EE2B0AF16E00B47C27 /* ViewController.swift */; };
 		84C2E1F22B0AF16E00B47C27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C2E1F02B0AF16E00B47C27 /* Main.storyboard */; };
 		84C2E1F42B0AF16F00B47C27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C2E1F32B0AF16F00B47C27 /* Assets.xcassets */; };
 		84C2E1F72B0AF16F00B47C27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C2E1F52B0AF16F00B47C27 /* LaunchScreen.storyboard */; };
-		84C2E1FF2B0AF2EC00B47C27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84C2E1FE2B0AF2EB00B47C27 /* GoogleService-Info.plist */; };
 		84C2E20E2B0AF38B00B47C27 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84C2E20D2B0AF38B00B47C27 /* FirebaseAuth */; };
 		84C2E21A2B0AF38B00B47C27 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 84C2E2192B0AF38B00B47C27 /* FirebaseFirestore */; };
 		84C2E21E2B0AF38B00B47C27 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 84C2E21D2B0AF38B00B47C27 /* FirebaseFirestoreSwift */; };
@@ -48,6 +53,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84456ECB2B2483AF00400117 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84456ECE2B248E8D00400117 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		84456ED02B248F4300400117 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		84456ED22B24915300400117 /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appstore.png; sourceTree = "<group>"; };
+		84456ED42B24A01000400117 /* LoginProgreeIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProgreeIndicatorManager.swift; sourceTree = "<group>"; };
+		84456ED72B24A81E00400117 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		84C2E1E72B0AF16E00B47C27 /* ExpenseX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C2E1EA2B0AF16E00B47C27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84C2E1EC2B0AF16E00B47C27 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,7 +67,6 @@
 		84C2E1F32B0AF16F00B47C27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84C2E1F62B0AF16F00B47C27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84C2E1F82B0AF16F00B47C27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84C2E1FE2B0AF2EB00B47C27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84C2E2392B0C134900B47C27 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		84C2E23B2B0C16B700B47C27 /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		84C2E23F2B0C181400B47C27 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
@@ -101,6 +111,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84456ECD2B248D5500400117 /* Login Screen */ = {
+			isa = PBXGroup;
+			children = (
+				84456ECE2B248E8D00400117 /* LoginView.swift */,
+				84456ED02B248F4300400117 /* LoginViewController.swift */,
+				84456ED42B24A01000400117 /* LoginProgreeIndicatorManager.swift */,
+				84456ED22B24915300400117 /* appstore.png */,
+			);
+			path = "Login Screen";
+			sourceTree = "<group>";
+		};
 		84C2E1DE2B0AF16E00B47C27 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				84C2E23F2B0C181400B47C27 /* Configs.swift */,
+				84456ECD2B248D5500400117 /* Login Screen */,
 				84C2E2492B0C260100B47C27 /* Register Screen */,
 				84C2E2412B0C19B700B47C27 /* Data Models */,
 				84C2E2372B0C12FA00B47C27 /* Main Screen */,
@@ -133,7 +155,7 @@
 				84C2E1F32B0AF16F00B47C27 /* Assets.xcassets */,
 				84C2E1F52B0AF16F00B47C27 /* LaunchScreen.storyboard */,
 				84C2E1F82B0AF16F00B47C27 /* Info.plist */,
-				84C2E1FE2B0AF2EB00B47C27 /* GoogleService-Info.plist */,
+				84456ECB2B2483AF00400117 /* GoogleService-Info.plist */,
 			);
 			path = ExpenseX;
 			sourceTree = "<group>";
@@ -174,6 +196,7 @@
 				84C2E24D2B0C272B00B47C27 /* RegisterViewController.swift */,
 				84C2E2532B0C284D00B47C27 /* RegisterFirebaseManager.swift */,
 				84C2E25A2B0C2F9400B47C27 /* RegisterProgressIndicatorManager.swift */,
+				84456ED72B24A81E00400117 /* logo.png */,
 			);
 			path = "Register Screen";
 			sourceTree = "<group>";
@@ -316,10 +339,12 @@
 			files = (
 				84C2E1F72B0AF16F00B47C27 /* LaunchScreen.storyboard in Resources */,
 				8535B34F2B213B430063BD26 /* man.jpg in Resources */,
-				84C2E1FF2B0AF2EC00B47C27 /* GoogleService-Info.plist in Resources */,
+				84456ED32B24915300400117 /* appstore.png in Resources */,
 				85E744B62B21D8A500A929A7 /* img.png in Resources */,
+				84456ED82B24A81E00400117 /* logo.png in Resources */,
 				84C2E1F42B0AF16F00B47C27 /* Assets.xcassets in Resources */,
 				84C2E1F22B0AF16E00B47C27 /* Main.storyboard in Resources */,
+				84456ECC2B2483AF00400117 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8535B34D2B21032B0063BD26 /* DashboardViewController.swift in Sources */,
+				84456ECF2B248E8D00400117 /* LoginView.swift in Sources */,
 				84C2E1EF2B0AF16E00B47C27 /* ViewController.swift in Sources */,
 				84C2E2542B0C284D00B47C27 /* RegisterFirebaseManager.swift in Sources */,
 				85C67F2B2B223240007BC714 /* StatisticsViewController.swift in Sources */,
@@ -347,6 +373,7 @@
 				8535B34B2B2103100063BD26 /* DashboardView.swift in Sources */,
 				84C2E2482B0C1F5500B47C27 /* RightBarButtonManager.swift in Sources */,
 				84C2E1ED2B0AF16E00B47C27 /* SceneDelegate.swift in Sources */,
+				84456ED12B248F4300400117 /* LoginViewController.swift in Sources */,
 				85C67F242B21FEC3007BC714 /* FinancialEntryView.swift in Sources */,
 				84C2E23A2B0C134900B47C27 /* MainScreenView.swift in Sources */,
 				84C2E25B2B0C2F9400B47C27 /* RegisterProgressIndicatorManager.swift in Sources */,
@@ -358,6 +385,7 @@
 				84C2E2432B0C19D400B47C27 /* Contact.swift in Sources */,
 				84C2E2592B0C2F2500B47C27 /* ProgressSpinnerDelegate.swift in Sources */,
 				85C67F312B226D8C007BC714 /* ProgressRingView.swift in Sources */,
+				84456ED52B24A01000400117 /* LoginProgreeIndicatorManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

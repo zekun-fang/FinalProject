@@ -14,9 +14,10 @@ extension RegisterViewController{
         //MARK: display the progress indicator...
         showActivityIndicator()
         //MARK: create a Firebase user with email and password...
-        if let name = registerView.textFieldName.text,
-           let email = registerView.textFieldEmail.text,
-           let password = registerView.textFieldPassword.text{
+        if let name = registerView.nameTextField.text,
+           let email = registerView.emailTextField.text,
+           let password = registerView.passwordTextField.text{
+            print("Password Length: \(password.count)")
             //Validations....
             Auth.auth().createUser(withEmail: email, password: password, completion: {result, error in
                 if error == nil{
@@ -25,6 +26,8 @@ extension RegisterViewController{
                 }else{
                     //MARK: there is a error creating the user...
                     print(error)
+                    self.showAlert(message: "There is a error creating the user.")
+                    self.hideActivityIndicator()
                 }
             })
         }
@@ -40,8 +43,8 @@ extension RegisterViewController{
                 //MARK: hide the progress indicator...
                 self.hideActivityIndicator()
                 
-                //MARK: the profile update is successful...
-                self.navigationController?.popViewController(animated: true)
+                let dashboardVC = DashboardViewController()
+                self.navigationController?.pushViewController(dashboardVC, animated: true)
             }else{
                 //MARK: there was an error updating the profile...
                 print("Error occured: \(String(describing: error))")
