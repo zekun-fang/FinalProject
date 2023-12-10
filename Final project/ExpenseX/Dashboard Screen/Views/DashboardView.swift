@@ -50,6 +50,13 @@ class DashboardView: UIView, UITabBarDelegate{
 
     }
   
+    // Call this method to update the date label with the current date and time
+    func updateDateLabel() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE d MMMM" // Example format: "Monday 9 November"
+        let dateString = formatter.string(from: Date())
+        dateLabel.text = dateString.uppercased()
+    }
     
     private func styleAccountBalanceTitleLabel() {
         accountBalanceTitleLabel.font = UIFont.systemFont(ofSize: 16) // Adjust the font size as needed
@@ -221,7 +228,7 @@ class DashboardView: UIView, UITabBarDelegate{
         // Avatar ImageView constraints
         NSLayoutConstraint.activate([
             avatarImageView.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 65),
+            avatarImageView.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 45),
             avatarImageView.heightAnchor.constraint(equalToConstant: 40),
             avatarImageView.widthAnchor.constraint(equalToConstant: 40)
         ])
@@ -281,7 +288,7 @@ class DashboardView: UIView, UITabBarDelegate{
     
     
     private func styleNameLabel() {
-            nameLabel.text = "VISHNU"
+            nameLabel.text = "VINSHNU"
             nameLabel.font = UIFont.systemFont(ofSize: 16)
             nameLabel.textAlignment = .right
             addSubview(nameLabel)
@@ -374,7 +381,7 @@ class DashboardView: UIView, UITabBarDelegate{
 
     
     private func styleHorizontalLineView() {
-            horizontalLineView.backgroundColor = .black
+        horizontalLineView.backgroundColor = .black
         }
     
     
@@ -445,7 +452,7 @@ class DashboardView: UIView, UITabBarDelegate{
                 // Name label constraints
                 nameLabel.topAnchor.constraint(equalTo: dateLabel.topAnchor),
                 nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                nameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: dateLabel.trailingAnchor, constant: 8),
+                nameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: dateLabel.trailingAnchor, constant: 4),
                 
                 // Account balance label constraints
                 accountBalanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),

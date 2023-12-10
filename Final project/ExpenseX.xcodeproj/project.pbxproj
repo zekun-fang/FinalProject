@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841AE1D62B25B6160049813A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1D52B25B6160049813A /* ProfileViewController.swift */; };
+		841AE1D82B25B6310049813A /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1D72B25B6310049813A /* AccountInfoView.swift */; };
+		841AE1DA2B25B6750049813A /* AccountIfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1D92B25B6750049813A /* AccountIfoViewController.swift */; };
+		841AE1DC2B25CB440049813A /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1DB2B25CB440049813A /* PhotoManager.swift */; };
+		841AE1DE2B25D32F0049813A /* AccountScreenFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1DD2B25D32F0049813A /* AccountScreenFirebaseManager.swift */; };
+		841AE1E02B25E9370049813A /* ImageViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1DF2B25E9370049813A /* ImageViewUtils.swift */; };
 		84456ECC2B2483AF00400117 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84456ECB2B2483AF00400117 /* GoogleService-Info.plist */; };
 		84456ECF2B248E8D00400117 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84456ECE2B248E8D00400117 /* LoginView.swift */; };
 		84456ED12B248F4300400117 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84456ED02B248F4300400117 /* LoginViewController.swift */; };
@@ -28,7 +34,6 @@
 		84C2E2402B0C181400B47C27 /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E23F2B0C181400B47C27 /* Configs.swift */; };
 		84C2E2432B0C19D400B47C27 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E2422B0C19D400B47C27 /* Contact.swift */; };
 		84C2E2452B0C1ADC00B47C27 /* ContactsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E2442B0C1ADC00B47C27 /* ContactsTableViewManager.swift */; };
-		84C2E2482B0C1F5500B47C27 /* RightBarButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E2472B0C1F5500B47C27 /* RightBarButtonManager.swift */; };
 		84C2E24C2B0C264400B47C27 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E24B2B0C264400B47C27 /* RegisterView.swift */; };
 		84C2E24E2B0C272B00B47C27 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E24D2B0C272B00B47C27 /* RegisterViewController.swift */; };
 		84C2E2542B0C284D00B47C27 /* RegisterFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E2532B0C284D00B47C27 /* RegisterFirebaseManager.swift */; };
@@ -45,7 +50,6 @@
 		85C67F272B220574007BC714 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C67F262B220574007BC714 /* TransactionTableViewCell.swift */; };
 		85C67F292B220594007BC714 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C67F282B220594007BC714 /* TransactionViewController.swift */; };
 		85C67F2B2B223240007BC714 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C67F2A2B223240007BC714 /* StatisticsViewController.swift */; };
-		85C67F2D2B2232EE007BC714 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C67F2C2B2232EE007BC714 /* ProfileViewController.swift */; };
 		85C67F2F2B22680B007BC714 /* AddTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C67F2E2B22680B007BC714 /* AddTransaction.swift */; };
 		85C67F312B226D8C007BC714 /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C67F302B226D8C007BC714 /* ProgressRingView.swift */; };
 		85E744B62B21D8A500A929A7 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = 85E744B52B21D8A500A929A7 /* img.png */; };
@@ -53,6 +57,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		841AE1D52B25B6160049813A /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		841AE1D72B25B6310049813A /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
+		841AE1D92B25B6750049813A /* AccountIfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountIfoViewController.swift; sourceTree = "<group>"; };
+		841AE1DB2B25CB440049813A /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
+		841AE1DD2B25D32F0049813A /* AccountScreenFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountScreenFirebaseManager.swift; sourceTree = "<group>"; };
+		841AE1DF2B25E9370049813A /* ImageViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewUtils.swift; sourceTree = "<group>"; };
 		84456ECB2B2483AF00400117 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84456ECE2B248E8D00400117 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		84456ED02B248F4300400117 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -72,7 +82,6 @@
 		84C2E23F2B0C181400B47C27 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		84C2E2422B0C19D400B47C27 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		84C2E2442B0C1ADC00B47C27 /* ContactsTableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewManager.swift; sourceTree = "<group>"; };
-		84C2E2472B0C1F5500B47C27 /* RightBarButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightBarButtonManager.swift; sourceTree = "<group>"; };
 		84C2E24B2B0C264400B47C27 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		84C2E24D2B0C272B00B47C27 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		84C2E2532B0C284D00B47C27 /* RegisterFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFirebaseManager.swift; sourceTree = "<group>"; };
@@ -89,7 +98,6 @@
 		85C67F262B220574007BC714 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		85C67F282B220594007BC714 /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		85C67F2A2B223240007BC714 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
-		85C67F2C2B2232EE007BC714 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		85C67F2E2B22680B007BC714 /* AddTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransaction.swift; sourceTree = "<group>"; };
 		85C67F302B226D8C007BC714 /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
 		85E744B52B21D8A500A929A7 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
@@ -111,6 +119,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841AE1D12B25A96E0049813A /* Profile Screen */ = {
+			isa = PBXGroup;
+			children = (
+				841AE1D52B25B6160049813A /* ProfileViewController.swift */,
+			);
+			path = "Profile Screen";
+			sourceTree = "<group>";
+		};
+		841AE1D22B25B3060049813A /* Account Screen */ = {
+			isa = PBXGroup;
+			children = (
+				841AE1D72B25B6310049813A /* AccountInfoView.swift */,
+				841AE1D92B25B6750049813A /* AccountIfoViewController.swift */,
+				841AE1DB2B25CB440049813A /* PhotoManager.swift */,
+				841AE1DD2B25D32F0049813A /* AccountScreenFirebaseManager.swift */,
+			);
+			path = "Account Screen";
+			sourceTree = "<group>";
+		};
 		84456ECD2B248D5500400117 /* Login Screen */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				84C2E23F2B0C181400B47C27 /* Configs.swift */,
+				841AE1DF2B25E9370049813A /* ImageViewUtils.swift */,
 				84456ECD2B248D5500400117 /* Login Screen */,
 				84C2E2492B0C260100B47C27 /* Register Screen */,
 				84C2E2412B0C19B700B47C27 /* Data Models */,
@@ -149,6 +177,8 @@
 				84C2E2552B0C2D0800B47C27 /* Progress Indicator */,
 				84C2E25C2B0C359000B47C27 /* Add Contact Screen */,
 				8535B3452B2102860063BD26 /* Dashboard Screen */,
+				841AE1D12B25A96E0049813A /* Profile Screen */,
+				841AE1D22B25B3060049813A /* Account Screen */,
 				84C2E1EA2B0AF16E00B47C27 /* AppDelegate.swift */,
 				84C2E1EC2B0AF16E00B47C27 /* SceneDelegate.swift */,
 				84C2E1F02B0AF16E00B47C27 /* Main.storyboard */,
@@ -166,7 +196,6 @@
 				84C2E2382B0C132300B47C27 /* Views */,
 				84C2E1EE2B0AF16E00B47C27 /* ViewController.swift */,
 				84C2E2442B0C1ADC00B47C27 /* ContactsTableViewManager.swift */,
-				84C2E2472B0C1F5500B47C27 /* RightBarButtonManager.swift */,
 			);
 			path = "Main Screen";
 			sourceTree = "<group>";
@@ -253,7 +282,6 @@
 				85E744B72B21EE4200A929A7 /* TransactionCardView.swift */,
 				85C67F232B21FEC3007BC714 /* FinancialEntryView.swift */,
 				85C67F2A2B223240007BC714 /* StatisticsViewController.swift */,
-				85C67F2C2B2232EE007BC714 /* ProfileViewController.swift */,
 				85C67F2E2B22680B007BC714 /* AddTransaction.swift */,
 				85C67F302B226D8C007BC714 /* ProgressRingView.swift */,
 				85A595692B2292DB00E1EA38 /* progress.swift */,
@@ -357,31 +385,35 @@
 			files = (
 				8535B34D2B21032B0063BD26 /* DashboardViewController.swift in Sources */,
 				84456ECF2B248E8D00400117 /* LoginView.swift in Sources */,
+				841AE1E02B25E9370049813A /* ImageViewUtils.swift in Sources */,
 				84C2E1EF2B0AF16E00B47C27 /* ViewController.swift in Sources */,
+				841AE1DA2B25B6750049813A /* AccountIfoViewController.swift in Sources */,
 				84C2E2542B0C284D00B47C27 /* RegisterFirebaseManager.swift in Sources */,
 				85C67F2B2B223240007BC714 /* StatisticsViewController.swift in Sources */,
 				85E744B82B21EE4200A929A7 /* TransactionCardView.swift in Sources */,
 				84C2E24E2B0C272B00B47C27 /* RegisterViewController.swift in Sources */,
 				85C67F292B220594007BC714 /* TransactionViewController.swift in Sources */,
 				84C2E24C2B0C264400B47C27 /* RegisterView.swift in Sources */,
+				841AE1D82B25B6310049813A /* AccountInfoView.swift in Sources */,
 				85A5956A2B2292DB00E1EA38 /* progress.swift in Sources */,
 				84C2E1EB2B0AF16E00B47C27 /* AppDelegate.swift in Sources */,
 				84C2E2612B0C35EE00B47C27 /* AddContactView.swift in Sources */,
+				841AE1DE2B25D32F0049813A /* AccountScreenFirebaseManager.swift in Sources */,
+				841AE1D62B25B6160049813A /* ProfileViewController.swift in Sources */,
 				85C67F2F2B22680B007BC714 /* AddTransaction.swift in Sources */,
 				84C2E23C2B0C16B700B47C27 /* ContactsTableViewCell.swift in Sources */,
 				84C2E2572B0C2D5700B47C27 /* ProgressSpinnerViewController.swift in Sources */,
 				8535B34B2B2103100063BD26 /* DashboardView.swift in Sources */,
-				84C2E2482B0C1F5500B47C27 /* RightBarButtonManager.swift in Sources */,
 				84C2E1ED2B0AF16E00B47C27 /* SceneDelegate.swift in Sources */,
 				84456ED12B248F4300400117 /* LoginViewController.swift in Sources */,
 				85C67F242B21FEC3007BC714 /* FinancialEntryView.swift in Sources */,
 				84C2E23A2B0C134900B47C27 /* MainScreenView.swift in Sources */,
 				84C2E25B2B0C2F9400B47C27 /* RegisterProgressIndicatorManager.swift in Sources */,
+				841AE1DC2B25CB440049813A /* PhotoManager.swift in Sources */,
 				85C67F272B220574007BC714 /* TransactionTableViewCell.swift in Sources */,
 				84C2E2402B0C181400B47C27 /* Configs.swift in Sources */,
 				84C2E2452B0C1ADC00B47C27 /* ContactsTableViewManager.swift in Sources */,
 				84C2E25E2B0C35D000B47C27 /* AddContactViewController.swift in Sources */,
-				85C67F2D2B2232EE007BC714 /* ProfileViewController.swift in Sources */,
 				84C2E2432B0C19D400B47C27 /* Contact.swift in Sources */,
 				84C2E2592B0C2F2500B47C27 /* ProgressSpinnerDelegate.swift in Sources */,
 				85C67F312B226D8C007BC714 /* ProgressRingView.swift in Sources */,

@@ -18,6 +18,7 @@ extension RegisterViewController{
            let email = registerView.emailTextField.text,
            let password = registerView.passwordTextField.text{
             print("Password Length: \(password.count)")
+
             //Validations....
             Auth.auth().createUser(withEmail: email, password: password, completion: {result, error in
                 if error == nil{

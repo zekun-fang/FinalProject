@@ -1,11 +1,18 @@
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let profileTableView = UITableView(frame: .zero, style: .grouped)
     let profileOptions = ["Account", "Settings", "Export Data", "Logout"]
     var userName = "Vishnu P V" // Replace with actual user name variable
-    private let userImageView = UIImageView()
+    private let userImage = UIImageView().image
+    
+    let profileImageView = UIImageView(frame: CGRect(x: 15, y: 25, width: 50, height: 50))
+    
+    var handleAuth: AuthStateDidChangeListenerHandle?
+    var currentUser: FirebaseAuth.User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,7 +21,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         setProfileHeader()
         view.backgroundColor = UIColor(red: 246/255.0, green: 237/255.0, blue: 220/255.0, alpha: 1)
     }
-
+    
     private func setupProfileTableView() {
         view.addSubview(profileTableView)
 
@@ -44,7 +51,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
         headerView.backgroundColor = .clear
 
-        let profileImageView = UIImageView(frame: CGRect(x: 15, y: 25, width: 50, height: 50))
         // Set the image named "man" for profileImageView
         profileImageView.backgroundColor = UIColor.black
         profileImageView.image = UIImage(systemName: "person.circle")
@@ -61,6 +67,22 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         headerView.addSubview(nameLabel)
 
         profileTableView.tableHeaderView = headerView
+        
+        handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
+            if user == nil{
+            }else{
+                //MARK: the user is signed in...
+                self.currentUser = user
+                print("\(user?.displayName ?? "Anonymous")")
+                nameLabel.text = "\(user?.displayName ?? "Anonymous")"
+                print("success")
+                
+                //MARK: setting the profile photo...
+                if let url = self.currentUser?.photoURL{
+                    self.profileImageView.loadRemoteImage(from: url)
+                }
+            }
+        }
     }
 
 
@@ -108,5 +130,63 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Handle cell selection
+        switch indexPath.row {
+        case 0:
+            let accountInfoVC = AccountInfoViewController()
+            accountInfoVC.delegate = self
+            navigationController?.pushViewController(accountInfoVC, animated: true)
+        case 1:
+            return
+        case 2:
+            return
+        case 3:
+            logOutRowSelected()
+        default:
+            return
+        }
     }
+    
+    func logOutRowSelected() {
+        let logoutAlert = UIAlertController(title: "Logging out!", message: "Are you sure want to log out?", preferredStyle: .actionSheet)
+        logoutAlert.addAction(UIAlertAction(title: "Yes, log out!", style: .default, handler: { [weak self] _ in
+            do {
+                try Auth.auth().signOut()
+                self?.navigateToMainScreen()
+            } catch {
+                print("Error occurred during sign out: \(error.localizedDescription)")
+            }
+        }))
+        logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        self.present(logoutAlert, animated: true)
+    }
+
+    private func navigateToMainScreen() {
+        let mainScreenVC = ViewController() // Replace with your main screen view controller
+
+        // Set mainScreenVC as the root view controller to remove back button
+        if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+            window.rootViewController = UINavigationController(rootViewController: mainScreenVC)
+            window.makeKeyAndVisible()
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
+        }
+    }
+}
+
+extension ProfileViewController: AccountInfoViewControllerDelegate {
+    func didUpdateUserName(newName: String) {
+        // Update nameLabel in headerView
+        if let headerView = profileTableView.tableHeaderView, let nameLabel = headerView.subviews.compactMap({ $0 as? UILabel }).first {
+            nameLabel.text = newName
+        }
+
+        // Send a notification to update other parts of the app if needed
+        NotificationCenter.default.post(name: NSNotification.Name("UserNameUpdated"), object: nil, userInfo: ["newName": newName])
+    }
+    
+    func didUpdateProfilePhoto(_ profilePhotoURL:URL) {
+        // Update profileImageView with the new photo
+        self.profileImageView.loadRemoteImage(from: profilePhotoURL)
+    }
+    
 }

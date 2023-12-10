@@ -1,9 +1,16 @@
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class DashboardViewController: UIViewController, UITabBarDelegate {
     
     // This will be the main view for this view controller.
     private var dashboardView: DashboardView!
+    
+    private var timer: Timer?
+    
+    var handleAuth: AuthStateDidChangeListenerHandle?
+    var currentUser: FirebaseAuth.User?
 
     override func loadView() {
         // Instantiate your custom view and assign it to the view controller's main view.
@@ -14,21 +21,28 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-
+        
             // 设置 navigationBar 的选中项
             // 假设您想要选中 "Home" 标签
             if let homeItem = dashboardView.navigationBar.items?.first(where: { $0.title == "Home" }) {
                 dashboardView.navigationBar.selectedItem = homeItem
             }
+        timer?.invalidate()  // Invalidate the timer when the view is about to disappear
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(handleAuth!)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set up any additional configurations or data for your dashboardView here.
         configureView()
+        
+        updateDateLabel()
+        startTimer()
         
         // Add target-actions for controls
         dashboardView.viewAllButton.addTarget(self, action: #selector(viewAllButtonTapped), for: .touchUpInside)
@@ -39,16 +53,48 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
         navigationItem.hidesBackButton = true
     }
     
-
+    private func updateNameLabel(){
+        handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
+            if user == nil{
+            }else{
+                //MARK: the user is signed in...
+                self.currentUser = user
+                print("\(user?.displayName ?? "Anonymous")")
+                self.dashboardView.nameLabel.text = "\(user?.displayName ?? "Anonymous")"
+                print("success")
+            }
+        }
+    }
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+            self?.dashboardView.updateDateLabel()
+        }
+    }
     
+    func updateDateLabel() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE d MMMM" // Example format: "Monday 9 November"
+        let dateString = formatter.string(from: Date())
+            dashboardView.dateLabel.text = dateString.uppercased()
+    }
     private func configureView() {
         // Assuming you have methods to fetch or calculate these values
-        dashboardView.dateLabel.text = "MONDAY 9 NOVEMBER"
-        dashboardView.nameLabel.text = "VISHNU"
-        dashboardView.accountBalanceLabel.text = "9400.0"
+        dashboardView.nameLabel.text = "Zekun"
+        dashboardView.accountBalanceLabel.text = "$9400.0"
         dashboardView.incomeLabel.valueLabel.text = "Income:25000"
         dashboardView.expensesLabel.valueLabel.text = "Expenses:11200"
         loadTransactions()
+        
+        handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
+            if user == nil{
+            }else{
+                //MARK: the user is signed in...
+                self.currentUser = user
+                print("\(user?.displayName ?? "Anonymous")")
+                self.dashboardView.nameLabel.text = "\(user?.displayName ?? "Anonymous")"
+                print("success")
+            }
+        }
     }
     
     private func loadTransactions() {
