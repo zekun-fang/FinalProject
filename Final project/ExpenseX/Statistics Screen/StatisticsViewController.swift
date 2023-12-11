@@ -121,14 +121,13 @@ class StatisticViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.selectionStyle = .none
         cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-        
+
         let stats = segmentControl.selectedSegmentIndex == 0 ? expenseStats : incomeStats
         let stat = stats[indexPath.row]
         let progressView = SpendingProgressView()
-//        let progressView = cell.contentView.subviews.compactMap { $0 as? SpendingProgressView }.first
         progressView.configure(category: stat.category, amount: Int(stat.amount), progress: stat.progress)
         progressView.progressBar.progressTintColor = segmentControl.selectedSegmentIndex == 0 ? .red : .green
-        
+
         progressView.translatesAutoresizingMaskIntoConstraints = false
         cell.contentView.addSubview(progressView)
         cell.backgroundColor = UIColor(red: 246/255.0, green: 237/255.0, blue: 220/255.0, alpha: 1)
@@ -138,28 +137,10 @@ class StatisticViewController: UIViewController, UITableViewDelegate, UITableVie
             progressView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
             progressView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -8)
         ])
-        
 
         return cell
-        
-        
-        //        let categories = ["Shopping", "Subscription", "Food"]
-        //        let amounts = [-5120, -1280, -532]
-        //        let progresses: [Float] = [0.5, 0.4, 0.2]
-        //        let colors: [UIColor] = [.orange, .blue, .red]
-        
-        //        if indexPath.row < categories.count {
-        //            let category = categories[indexPath.row]
-        //            let amount = amounts[indexPath.row]
-        //            let progress = progresses[indexPath.row]
-        //            let color = colors[indexPath.row]
-        
-        //            progressView.configure(category: category, amount: amount, progress: progress)
-        //            progressView.progressBar.progressTintColor = color
-        //        }
-        
-        return cell
     }
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60

@@ -14,7 +14,7 @@ class SpendingProgressView: UIView {
     
     var amount: Int = 0 {
         didSet {
-            amountLabel.text = String(format: "- %d", abs(amount))
+            amountLabel.text = String(format: "%d", abs(amount))
         }
     }
     
@@ -73,6 +73,7 @@ class SpendingProgressView: UIView {
     
     func configure(category: String, amount: Int, progress: Float) {
         self.category = category
+        // 使用绝对值确保显示的金额总是正数
         self.amount = amount
         self.progress = progress
     }
