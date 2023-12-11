@@ -121,5 +121,3 @@ protocol AccountInfoViewControllerDelegate: AnyObject {
     func didUpdateUserName(newName: String)
     func didUpdateProfilePhoto(_ profilePhotoURL:URL)
 }
-
-

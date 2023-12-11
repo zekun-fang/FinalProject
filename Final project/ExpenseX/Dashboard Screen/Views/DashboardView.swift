@@ -1,29 +1,29 @@
 import UIKit
-
+import FirebaseAuth
 
 class DashboardView: UIView, UITabBarDelegate{
     
     
     // UI Elements
-        let dateLabel = UILabel()
-        let nameLabel = UILabel()
-        let accountBalanceLabel = UILabel()
+    let dateLabel = UILabel()
+    let nameLabel = UILabel()
+    let accountBalanceLabel = UILabel()
     let incomeModel = FinancialEntryView.EntryModel(value: "25000", icon: UIImage(named: "incomeIcon"), backgroundColor: .systemGreen)
     let expensesModel = FinancialEntryView.EntryModel(value: "11200", icon: UIImage(named: "expensesIcon"), backgroundColor: .systemRed)
 
     let incomeLabel = FinancialEntryView()
     let expensesLabel = FinancialEntryView()
 
-        let transactionFilterSegmentedControl = UISegmentedControl(items: ["Today", "Week", "Month", "Year"])
-        let recentTransactionsLabel = UILabel()
-        let viewAllButton = UIButton()
-        let navigationBar = UITabBar() // Simplified representation of a bottom navigation bar
-        let addTransactionButton = UIButton()
-        let avatarImageView = UIImageView() // Added avatar image view
-        let horizontalLineView = UIView()
-        let transactionsContainer = UIStackView()
-        let cardView = UIView()
-        let accountBalanceTitleLabel = UILabel()
+    let transactionFilterSegmentedControl = UISegmentedControl(items: ["Today", "Week", "Month", "Year"])
+    let recentTransactionsLabel = UILabel()
+    let viewAllButton = UIButton()
+    let navigationBar = UITabBar() // Simplified representation of a bottom navigation bar
+    let addTransactionButton = UIButton()
+    let avatarImageView = UIImageView() // Added avatar image view
+    let horizontalLineView = UIView()
+    let transactionsContainer = UIStackView()
+    let cardView = UIView()
+    let accountBalanceTitleLabel = UILabel()
 
     var onTransactionButtonTapped: (() -> Void)?
     // Initialization
@@ -45,19 +45,11 @@ class DashboardView: UIView, UITabBarDelegate{
         styleAccountBalanceTitleLabel()
         setupDashboardView()
         backgroundColor = UIColor(red: 167/255.0, green: 150/255.0, blue: 152/255.0, alpha: 1) // Updated background color
-        avatarImageView.image = UIImage(named: "fallbackImage") // Replace with any image from your assets
+        avatarImageView.image = UIImage(named: "man") // Replace with any image from your assets
         addTransactionButton.addTarget(self, action: #selector(transactionButtonTapped), for: .touchUpInside)
 
     }
-  
-    // Call this method to update the date label with the current date and time
-    func updateDateLabel() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE d MMMM" // Example format: "Monday 9 November"
-        let dateString = formatter.string(from: Date())
-        dateLabel.text = dateString.uppercased()
-    }
-    
+      
     private func styleAccountBalanceTitleLabel() {
         accountBalanceTitleLabel.font = UIFont.systemFont(ofSize: 16) // Adjust the font size as needed
         accountBalanceTitleLabel.textColor = .darkGray // Adjust the text color as needed
@@ -81,18 +73,18 @@ class DashboardView: UIView, UITabBarDelegate{
         cardView.addSubview(accountBalanceLabel)
         cardView.addSubview(incomeLabel)
         cardView.addSubview(expensesLabel)
-        
+        cardView.addSubview(avatarImageView)
     }
         
     
     // Setup the dashboard view
     private func setupDashboardView() {
            // Add all subviews
-           addSubview(dateLabel)
-           addSubview(nameLabel)
-           addSubview(accountBalanceLabel)
-           addSubview(incomeLabel)
-           addSubview(expensesLabel)
+//           addSubview(dateLabel)
+//           addSubview(nameLabel)
+//           addSubview(accountBalanceLabel)
+//           addSubview(incomeLabel)
+//           addSubview(expensesLabel)
            addSubview(transactionFilterSegmentedControl)
            addSubview(recentTransactionsLabel)
            addSubview(viewAllButton)
@@ -101,8 +93,7 @@ class DashboardView: UIView, UITabBarDelegate{
            addSubview(avatarImageView) // Add the avatar image view to the view hierarchy
            addSubview(horizontalLineView) // Add the horizontal line view to the view hierarchy
            addSubview(accountBalanceTitleLabel)
-            cardView.addSubview(dateLabel)
-            cardView.addSubview(nameLabel)
+        
            // Style and layout all subviews
            styleDateLabel()
            styleNameLabel()
@@ -122,6 +113,7 @@ class DashboardView: UIView, UITabBarDelegate{
        }
 
     private func setupTransactionsContainer() {
+        
           transactionsContainer.axis = .vertical
           transactionsContainer.spacing = 8
           transactionsContainer.distribution = .fill
@@ -139,18 +131,18 @@ class DashboardView: UIView, UITabBarDelegate{
               // transactionsContainer.bottomAnchor.constraint(equalTo: navigationBar.topAnchor, constant: -20)
           ])
         UIView.animate(withDuration: 0.3) {
-                self.layoutIfNeeded()
-            }
+            self.layoutIfNeeded()
+        }
         
       }
         
     // MARK: - Style Functions
     private func styleDateLabel() {
-            dateLabel.text = "MONDAY 9 NOVEMBER"
-            dateLabel.font = UIFont.systemFont(ofSize: 16)
-            dateLabel.textAlignment = .left
-            addSubview(dateLabel)
-        }
+        dateLabel.text = "MONDAY 9 NOVEMBER"
+        dateLabel.font = UIFont.systemFont(ofSize: 16)
+        dateLabel.textAlignment = .left
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private func styleAvatarImageView() {
         avatarImageView.contentMode = .scaleAspectFill
@@ -158,6 +150,7 @@ class DashboardView: UIView, UITabBarDelegate{
         avatarImageView.clipsToBounds = true
         avatarImageView.backgroundColor = .blue // Temporary background color to ensure visibility
         avatarImageView.image = UIImage(systemName: "person.circle")
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
 
         // Debugging: Check if the UIImage is correctly formed from the system name
         if avatarImageView.image == nil {
@@ -168,7 +161,7 @@ class DashboardView: UIView, UITabBarDelegate{
     
     private func setupAutoLayoutConstraints() {
         // Disable autoresizing mask translation for all subviews
-
+        
         let padding: CGFloat = 16.0
         let remValue: CGFloat = 200.0
         let incomeLabelHeightConstraint = incomeLabel.heightAnchor.constraint(equalToConstant: padding + (5 * 16))
@@ -182,6 +175,7 @@ class DashboardView: UIView, UITabBarDelegate{
             horizontalLineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             horizontalLineView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
             horizontalLineView.heightAnchor.constraint(equalToConstant: 1),
+            
             transactionFilterSegmentedControl.topAnchor.constraint(equalTo: horizontalLineView.bottomAnchor, constant: 180), // Moved down by 6rem
             transactionFilterSegmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 200),
             transactionFilterSegmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 80),
@@ -190,18 +184,17 @@ class DashboardView: UIView, UITabBarDelegate{
         
         NSLayoutConstraint.activate([
             incomeLabel.topAnchor.constraint(equalTo: accountBalanceLabel.bottomAnchor, constant: 1),
-            incomeLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: padding),
+//            incomeLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: padding),
             incomeLabel.widthAnchor.constraint(equalTo: cardView.widthAnchor, multiplier: 0.45, constant: -1),
             incomeLabel.heightAnchor.constraint(equalTo: cardView.heightAnchor, multiplier: 0.15, constant: 10),
             incomeLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -5)
-
         ])
 
-                // Expenses Label constraints
+        // Expenses Label constraints
         NSLayoutConstraint.activate([
             expensesLabel.topAnchor.constraint(equalTo: accountBalanceLabel.bottomAnchor, constant: padding),
             expensesLabel.leadingAnchor.constraint(equalTo: incomeLabel.trailingAnchor, constant: padding),
-            expensesLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -padding)
+//            expensesLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -padding)
         ])
         
         // CardView constraints
@@ -209,26 +202,26 @@ class DashboardView: UIView, UITabBarDelegate{
             cardView.topAnchor.constraint(equalTo: self.topAnchor),
             cardView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             cardView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            cardView.bottomAnchor.constraint(equalTo: expensesLabel.bottomAnchor, constant: 200)
-            ])
+//            cardView.bottomAnchor.constraint(equalTo: expensesLabel.bottomAnchor, constant: 200)
+        ])
 
         // Date label constraints
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20),
             dateLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
-            dateLabel.trailingAnchor.constraint(lessThanOrEqualTo: avatarImageView.leadingAnchor, constant: -padding)
+            dateLabel.trailingAnchor.constraint(equalTo: avatarImageView.leadingAnchor, constant: -60)
         ])
         
         NSLayoutConstraint.activate([
-                accountBalanceTitleLabel.bottomAnchor.constraint(equalTo: accountBalanceLabel.topAnchor, constant: -8), // 8 points above account balance label
-                accountBalanceTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-                accountBalanceTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            accountBalanceTitleLabel.bottomAnchor.constraint(equalTo: accountBalanceLabel.topAnchor, constant: -8), // 8 points above account balance label
+            accountBalanceTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            accountBalanceTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
         // Avatar ImageView constraints
         NSLayoutConstraint.activate([
             avatarImageView.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 45),
+            avatarImageView.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 60),
             avatarImageView.heightAnchor.constraint(equalToConstant: 40),
             avatarImageView.widthAnchor.constraint(equalToConstant: 40)
         ])
@@ -248,16 +241,17 @@ class DashboardView: UIView, UITabBarDelegate{
         ])
 
         NSLayoutConstraint.activate([
-                // Move transactionFilterSegmentedControl down by 6rem from the bottom of the cardView
-                transactionFilterSegmentedControl.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: remValue),
-                transactionFilterSegmentedControl.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-                transactionFilterSegmentedControl.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            // Move transactionFilterSegmentedControl down by 6rem from the bottom of the cardView
+            transactionFilterSegmentedControl.topAnchor.constraint(equalTo: cardView.bottomAnchor, constant: remValue),
+            transactionFilterSegmentedControl.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            transactionFilterSegmentedControl.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
 
-                // Position recentTransactionsLabel below transactionFilterSegmentedControl
-                recentTransactionsLabel.topAnchor.constraint(equalTo: transactionFilterSegmentedControl.bottomAnchor, constant: padding),
-                recentTransactionsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-                recentTransactionsLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            ])
+            // Position recentTransactionsLabel below transactionFilterSegmentedControl
+            recentTransactionsLabel.topAnchor.constraint(equalTo: transactionFilterSegmentedControl.bottomAnchor, constant: padding),
+            recentTransactionsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+//            recentTransactionsLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+        ])
+        
         self.layoutIfNeeded()
         cardView.layer.cornerRadius = 20
         cardView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -288,30 +282,33 @@ class DashboardView: UIView, UITabBarDelegate{
     
     
     private func styleNameLabel() {
-            nameLabel.text = "VINSHNU"
-            nameLabel.font = UIFont.systemFont(ofSize: 16)
-            nameLabel.textAlignment = .right
-            addSubview(nameLabel)
-        }
+        nameLabel.text = "VINSHNU"
+        nameLabel.font = UIFont.systemFont(ofSize: 16)
+        nameLabel.textAlignment = .right
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private func styleAccountBalanceLabel() {
         accountBalanceLabel.text = "9400.0"
         accountBalanceLabel.font = UIFont.boldSystemFont(ofSize: 32)
         accountBalanceLabel.textAlignment = .center
-        addSubview(accountBalanceLabel)
+        accountBalanceLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func styleIncomeLabel() {
         incomeLabel.valueLabel.text = "25000"
-            incomeLabel.iconImageView.image = UIImage(systemName: "arrow.down.circle") // Use your own asset
-            addSubview(incomeLabel)
-
+        incomeLabel.valueLabel.textAlignment = .center
+        incomeLabel.valueLabel.numberOfLines = 2
+        incomeLabel.iconImageView.image = UIImage(systemName: "arrow.down.circle") // Use your own asset
+        incomeLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func styleExpensesLabel() {
         expensesLabel.valueLabel.text = "11200"
+        expensesLabel.valueLabel.textAlignment = .center
+        expensesLabel.valueLabel.numberOfLines = 2
         expensesLabel.iconImageView.image = UIImage(systemName: "arrow.up.circle") // Use your own asset
-        addSubview(expensesLabel)
+        expensesLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func styleTransactionFilterSegmentedControl() {
@@ -321,14 +318,14 @@ class DashboardView: UIView, UITabBarDelegate{
     
     private func styleRecentTransactionsLabel() {
         recentTransactionsLabel.text = "Recent Transactions"
-        addSubview(recentTransactionsLabel)
+//        addSubview(recentTransactionsLabel)
         addSubview(transactionCard)
     }
     
     private func styleViewAllButton() {
         viewAllButton.setTitle("View All", for: .normal)
         viewAllButton.setTitleColor(.black, for: .normal)
-        addSubview(viewAllButton)
+//        addSubview(viewAllButton)
     }
     
 
@@ -382,7 +379,7 @@ class DashboardView: UIView, UITabBarDelegate{
     
     private func styleHorizontalLineView() {
         horizontalLineView.backgroundColor = .black
-        }
+    }
     
     
     // MARK: - Layout Functions
@@ -433,82 +430,87 @@ class DashboardView: UIView, UITabBarDelegate{
     }
     
     @objc func transactionButtonTapped() {
-            onTransactionButtonTapped?()
-        }
-    
+        onTransactionButtonTapped?()
+    }
     
     let transactionCard = TransactionCardView()
+    
     private func layoutSubviewsWithAutoLayout() {
-            // Enable Auto Layout for all subviews
-              subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-               
-            
-            // Set up constraints for each UI element
-            NSLayoutConstraint.activate([
-                // Date label constraints
-                dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-                dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                
-                // Name label constraints
-                nameLabel.topAnchor.constraint(equalTo: dateLabel.topAnchor),
-                nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                nameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: dateLabel.trailingAnchor, constant: 4),
-                
-                // Account balance label constraints
-                accountBalanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
-                accountBalanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                accountBalanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                
-                // Income label constraints
-                incomeLabel.topAnchor.constraint(equalTo: accountBalanceLabel.bottomAnchor, constant: 20),
-                incomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-                
-                // Expenses label constraints
-                expensesLabel.topAnchor.constraint(equalTo: incomeLabel.topAnchor),
-                expensesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                expensesLabel.leadingAnchor.constraint(equalTo: incomeLabel.trailingAnchor, constant: 16),
-                expensesLabel.widthAnchor.constraint(equalTo: incomeLabel.widthAnchor),
-                
-                // Transaction filter segmented control constraints
-                transactionFilterSegmentedControl.topAnchor.constraint(equalTo: incomeLabel.bottomAnchor, constant: 16),
-                transactionFilterSegmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                transactionFilterSegmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                
-                // Recent transactions label constraints
-                recentTransactionsLabel.topAnchor.constraint(equalTo: transactionFilterSegmentedControl.bottomAnchor, constant: 8),
-                recentTransactionsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                recentTransactionsLabel.trailingAnchor.constraint(equalTo: viewAllButton.leadingAnchor, constant: -8),
-                
-                // View all button constraints
-                viewAllButton.topAnchor.constraint(equalTo: recentTransactionsLabel.topAnchor),
-                viewAllButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                
-                // Add transaction button constraints
-                addTransactionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-                addTransactionButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-                addTransactionButton.widthAnchor.constraint(equalToConstant: 60),
-                addTransactionButton.heightAnchor.constraint(equalToConstant: 60),
-                
-                // Navigation bar constraints
-                navigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
-                navigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
-                navigationBar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-                navigationBar.heightAnchor.constraint(equalToConstant: 50),
-               
-            ])
+        // Enable Auto Layout for all subviews
+          subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+           
         
+        // Set up constraints for each UI element
+        NSLayoutConstraint.activate([
+            // Date label constraints
+            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
+            // Name label constraints
+            nameLabel.topAnchor.constraint(equalTo: dateLabel.topAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            nameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: dateLabel.trailingAnchor, constant: 4),
+            
+            // Account balance label constraints
+            accountBalanceLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
+            accountBalanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            accountBalanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
+            // Income label constraints
+            incomeLabel.topAnchor.constraint(equalTo: accountBalanceLabel.bottomAnchor, constant: 20),
+            incomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            expensesLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -20),
+            
+            // Expenses label constraints
+            expensesLabel.topAnchor.constraint(equalTo: incomeLabel.topAnchor),
+            expensesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            expensesLabel.leadingAnchor.constraint(equalTo: incomeLabel.trailingAnchor, constant: 16),
+            expensesLabel.widthAnchor.constraint(equalTo: incomeLabel.widthAnchor),
+            expensesLabel.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -20),
+            
+            // Transaction filter segmented control constraints
+            transactionFilterSegmentedControl.topAnchor.constraint(equalTo: incomeLabel.bottomAnchor, constant: 16),
+            transactionFilterSegmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            transactionFilterSegmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
+            // Recent transactions label constraints
+            recentTransactionsLabel.topAnchor.constraint(equalTo: transactionFilterSegmentedControl.bottomAnchor, constant: 8),
+            recentTransactionsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            recentTransactionsLabel.trailingAnchor.constraint(equalTo: viewAllButton.leadingAnchor, constant: -8),
+            
+            // View all button constraints
+            viewAllButton.topAnchor.constraint(equalTo: recentTransactionsLabel.topAnchor),
+            viewAllButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            viewAllButton.widthAnchor.constraint(equalToConstant: 80),
+            
+            // Add transaction button constraints
+            addTransactionButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            addTransactionButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            addTransactionButton.widthAnchor.constraint(equalToConstant: 60),
+            addTransactionButton.heightAnchor.constraint(equalToConstant: 60),
+            
+            // Navigation bar constraints
+            navigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            navigationBar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            navigationBar.heightAnchor.constraint(equalToConstant: 50),
+           
+        ])
+    
+        
             // Additional constraints to ensure proper sizing
             incomeLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
             expensesLabel.heightAnchor.constraint(equalTo: incomeLabel.heightAnchor).isActive = true
-        }
-        
-        // Override layoutSubviews to activate your constraints
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            layoutSubviewsWithAutoLayout()
-        }
+    }
     
+    // Override layoutSubviews to activate your constraints
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutSubviewsWithAutoLayout()
+    }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
         
 }

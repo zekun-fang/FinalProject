@@ -63,7 +63,7 @@ class TransactionCardView: UIView {
     }
 
     func configure(with transaction: Transaction) {
-           transactionAmountLabel.text = "₹ \(transaction.amount)"
+           transactionAmountLabel.text = "$ \(transaction.amount)"
            transactionCategoryLabel.text = transaction.category
            
            let iconName = transaction.isIncome ? "arrow.up.circle.fill" : "arrow.down.circle.fill"
@@ -73,11 +73,4 @@ class TransactionCardView: UIView {
            // Set the background color based on transaction type
            self.backgroundColor = transaction.isIncome ? UIColor(red: 193/255.0, green: 184/255.0, blue: 185/255.0, alpha: 1) : UIColor(red: 217/255.0, green: 217/255.0, blue: 217/255.0, alpha: 1)
        }
-}
-
-// Assuming you have a Transaction struct defined somewhere
-struct Transaction {
-    let amount: Double
-    let category: String
-    let isIncome: Bool
 }

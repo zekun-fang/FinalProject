@@ -11,6 +11,10 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
     
     var handleAuth: AuthStateDidChangeListenerHandle?
     var currentUser: FirebaseAuth.User?
+    let database = Firestore.firestore()
+    
+    //represent all transactions of the current user
+    var transactions: [Transaction] = []
 
     override func loadView() {
         // Instantiate your custom view and assign it to the view controller's main view.
@@ -28,6 +32,9 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
                 dashboardView.navigationBar.selectedItem = homeItem
             }
         timer?.invalidate()  // Invalidate the timer when the view is about to disappear
+        
+        fetchTransactions()
+        loadTransactions(transactions)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -37,12 +44,14 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupCurrentUser()
         // Set up any additional configurations or data for your dashboardView here.
         configureView()
         
+        updateNameLabelAndPhoto()
         updateDateLabel()
         startTimer()
+        calculateAndDisplayTotals()
         
         // Add target-actions for controls
         dashboardView.viewAllButton.addTarget(self, action: #selector(viewAllButtonTapped), for: .touchUpInside)
@@ -50,10 +59,36 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
         dashboardView.transactionFilterSegmentedControl.addTarget(self, action: #selector(transactionFilterChanged(_:)), for: .valueChanged)
         dashboardView.navigationBar.delegate = self
        
+        NotificationCenter.default.addObserver(self, selector: #selector(profilePhotoUpdated(_:)), name: NSNotification.Name("ProfilePhotoUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userNameUpdated), name: NSNotification.Name("UserNameUpdated"), object: nil)
+        
         navigationItem.hidesBackButton = true
     }
     
-    private func updateNameLabel(){
+    @objc private func profilePhotoUpdated(_ notification: Notification) {
+        if let photoURL = notification.userInfo?["profilePhotoURL"] as? URL {
+            // Use your extension to load the image
+            dashboardView.avatarImageView.loadRemoteImage(from: photoURL)
+        }
+    }
+    
+    @objc private func userNameUpdated(_ notification: Notification) {
+        if let newName = notification.userInfo?["newName"] as? String {
+            self.dashboardView.nameLabel.text = newName
+        }
+    }
+    
+    private func setupCurrentUser(){
+        handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
+            if user == nil{
+            }else{
+                //MARK: the user is signed in...
+                self.currentUser = user
+            }
+        }
+    }
+    
+    private func updateNameLabelAndPhoto(){
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
             if user == nil{
             }else{
@@ -62,59 +97,104 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
                 print("\(user?.displayName ?? "Anonymous")")
                 self.dashboardView.nameLabel.text = "\(user?.displayName ?? "Anonymous")"
                 print("success")
+                
+                if let url = self.currentUser?.photoURL{
+                    self.dashboardView.avatarImageView.loadRemoteImage(from: url)
+                }
             }
         }
     }
     private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
-            self?.dashboardView.updateDateLabel()
+            self?.updateDateLabel()
         }
     }
-    
-    func updateDateLabel() {
+
+    private func updateDateLabel() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE d MMMM" // Example format: "Monday 9 November"
+        formatter.dateFormat = "EEEE d MMMM"
         let dateString = formatter.string(from: Date())
-            dashboardView.dateLabel.text = dateString.uppercased()
-    }
-    private func configureView() {
-        // Assuming you have methods to fetch or calculate these values
-        dashboardView.nameLabel.text = "Zekun"
-        dashboardView.accountBalanceLabel.text = "$9400.0"
-        dashboardView.incomeLabel.valueLabel.text = "Income:25000"
-        dashboardView.expensesLabel.valueLabel.text = "Expenses:11200"
-        loadTransactions()
-        
-        handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
-            if user == nil{
-            }else{
-                //MARK: the user is signed in...
-                self.currentUser = user
-                print("\(user?.displayName ?? "Anonymous")")
-                self.dashboardView.nameLabel.text = "\(user?.displayName ?? "Anonymous")"
-                print("success")
-            }
-        }
+        print("Updating date label to: \(dateString)")  // 调试输出
+        dashboardView.dateLabel.text = dateString.uppercased()
     }
     
-    private func loadTransactions() {
-        let transactions = fetchTransactions()
+    private func calculateAndDisplayTotals() {
+        var totalIncome: Double = 0
+        var totalExpenses: Double = 0
 
         for transaction in transactions {
+            if transaction.isIncome {
+                totalIncome += transaction.amount
+            } else {
+                totalExpenses += transaction.amount
+            }
+        }
+
+        // Calculate Account Blance
+        let accountBalance = totalIncome - totalExpenses
+
+        // Update UI
+        dashboardView.incomeLabel.valueLabel.text = "Income:\n$\(totalIncome)"
+        dashboardView.expensesLabel.valueLabel.text = "Expenses:\n$\(totalExpenses)"
+        dashboardView.accountBalanceLabel.text = "$\(accountBalance)"
+    }
+
+    
+    private func configureView() {
+        // Assuming you have methods to fetch or calculate these values
+//        dashboardView.nameLabel.text = "Zekun"
+        dashboardView.accountBalanceLabel.text = "$9400.0"
+        dashboardView.incomeLabel.valueLabel.text = "Income:\n25000"
+        dashboardView.expensesLabel.valueLabel.text = "Expenses:\n11200"
+        
+    }
+    
+    private func loadTransactions(_ transactions: [Transaction]) {
+        // Keep last four elements of array of transactions
+        let recentTransactions = transactions.suffix(4)
+
+        // remove all current transaction view
+        dashboardView.transactionsContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        for transaction in recentTransactions {
             let cardView = TransactionCardView()
             cardView.configure(with: transaction)
             dashboardView.transactionsContainer.addArrangedSubview(cardView)
-
-            // Since you're using a stack view, you only need to set the height constraint.
-            // The stack view will manage the other constraints for you.
-            cardView.heightAnchor.constraint(equalToConstant: 50).isActive = true // Set this to your requirement
+            cardView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         }
     }
     
+    private func filterTransactions(for timeRange: TimeRange) -> [Transaction] {
+        let filteredTransactions: [Transaction]
+        let now = Date()
+        let calendar = Calendar.current
+
+        switch timeRange {
+        case .today:
+            filteredTransactions = transactions.filter { calendar.isDateInToday($0.date) }
+        case .week:
+            filteredTransactions = transactions.filter { calendar.isDate($0.date, equalTo: now, toGranularity: .weekOfYear) }
+        case .month:
+            filteredTransactions = transactions.filter { calendar.isDate($0.date, equalTo: now, toGranularity: .month) }
+        case .year:
+            filteredTransactions = transactions.filter { calendar.isDate($0.date, equalTo: now, toGranularity: .year) }
+        }
+
+        return filteredTransactions
+    }
+
+    enum TimeRange {
+        case today
+        case week
+        case month
+        case year
+    }
+    
     @objc private func addTransactionButtonTapped() {
-           let addTransactionVC = AddTransactionViewController()
-           navigationController?.pushViewController(addTransactionVC, animated: true)
-       }
+       let addTransactionVC = AddTransactionViewController()
+        addTransactionVC.currentUser = self.currentUser
+       navigationController?.pushViewController(addTransactionVC, animated: true)
+   }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
             switch item.tag {
@@ -138,9 +218,11 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
         }
         
         private func navigateToTransactions() {
-           let transactionVC = TransactionsViewController() // 用您的 'Home' 
-           navigationController?.pushViewController(transactionVC, animated: true)
+            let transactionVC = TransactionsViewController()
+            transactionVC.transactionsFromDashboard = self.transactions // 传递交易数据
+            navigationController?.pushViewController(transactionVC, animated: true)
         }
+
 
         private func navigateToStatistics() {
             let statsVC = StatisticViewController() // 用您的 'Statistics' 视图控制器替换
@@ -152,37 +234,81 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
             navigationController?.pushViewController(profileVC, animated: true)
         }
     
-    private func fetchTransactions() -> [Transaction] {
-            // Fetch or create transaction data
-            // For demonstration, create some dummy data
-            return [
-                Transaction(amount: 15000, category: "Income", isIncome: true),
-                Transaction(amount: 6500, category: "Food", isIncome: false),
-                Transaction(amount: 2800, category: "Income", isIncome: true)
-            ]
+    private func fetchTransactions() {
+        handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
+            if user == nil{
+            }else{
+                //MARK: the user is signed in...
+                self.currentUser = user
+                guard let userEmail = self.currentUser?.email else { return }
+
+                self.database.collection("users").document(userEmail).collection("transactions")
+                    .addSnapshotListener { [weak self] querySnapshot, error in
+                        guard let self = self else { return }
+                        if let error = error {
+                            print("Error getting transactions: \(error.localizedDescription)")
+                            return
+                        }
+                        // Clear existing transactions before appending new ones
+                        self.transactions.removeAll()
+
+                        for document in querySnapshot?.documents ?? [] {
+                            do {
+                                let transaction = try document.data(as: Transaction.self)
+                                self.transactions.append(transaction)
+                                print("Fetched transaction: \(transaction)") // test
+                            } catch {
+                                print("Error decoding transaction: \(error)")
+                            }
+                        }
+
+                        // Reload the transactions on the UI
+                        DispatchQueue.main.async {
+                            self.loadTransactions(self.transactions)
+                            self.calculateAndDisplayTotals()
+                        }
+                    }
+            }
         }
+        
+    }
+
     
     // MARK: - Actions
     
     @objc private func viewAllButtonTapped() {
-        // Handle the action for the view all button tap
-        print("View All button tapped")
+        let transactionVC = TransactionsViewController()
+        
+        // 传递所有交易记录给 TransactionViewController
+        transactionVC.transactionsFromDashboard = self.transactions
+        
+        // 设置 TransactionViewController 的分段控制器为 "All"
+        transactionVC.selectedSegment = .all
+
+        // 使用导航控制器推送 TransactionViewController
+        navigationController?.pushViewController(transactionVC, animated: true)
     }
 
     
     @objc private func transactionFilterChanged(_ sender: UISegmentedControl) {
-        // Handle the action for the transaction filter segment control value change
+        let selectedTimeRange: TimeRange
+
         switch sender.selectedSegmentIndex {
         case 0:
-            print("Today selected")
+            selectedTimeRange = .today
         case 1:
-            print("Week selected")
+            selectedTimeRange = .week
         case 2:
-            print("Month selected")
+            selectedTimeRange = .month
         case 3:
-            print("Year selected")
+            selectedTimeRange = .year
         default:
-            break
+            return
         }
+
+        let filteredTransactions = filterTransactions(for: selectedTimeRange)
+        // 现在您有了过滤后的交易，可以根据这些交易来更新界面
+        loadTransactions(filteredTransactions)
     }
+
 }

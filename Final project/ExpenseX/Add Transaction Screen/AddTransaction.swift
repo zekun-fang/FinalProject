@@ -1,17 +1,10 @@
-//
-//  AddTransaction.swift
-//  APP12
-//
-//  Created by 孔祥睿 on 07/12/2023.
-//
-
 import Foundation
 import UIKit
 import MapKit
 import CoreLocation
 
 
-class AddTransactionViewController:  UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate {
+class AddTransaction:  UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CLLocationManagerDelegate {
     private let categoryPicker = UIPickerView()
     private let categories = ["Food", "Transport", "Entertainment", "Utilities", "Other"]
     private let datePicker: UIDatePicker = {
@@ -23,7 +16,7 @@ class AddTransactionViewController:  UIViewController, UIPickerViewDataSource, U
     // 创建UI组件
     private let amountLabel: UILabel = {
         let label = UILabel()
-        label.text = "₹ 55698"
+        label.text = "$ 55698"
         label.font = UIFont.boldSystemFont(ofSize: 40)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -233,4 +226,3 @@ class AddTransactionViewController:  UIViewController, UIPickerViewDataSource, U
     }
     
 }
-

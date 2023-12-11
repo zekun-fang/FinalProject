@@ -104,13 +104,18 @@ class TransactionTableViewCell: UITableViewCell {
         contentView.bottomAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 20).isActive = true
     }
     
-    public func configure(with transaction: Transaction_demo) {
+    public func configure(with transaction: Transaction) {
         categoryLabel.text = transaction.category
         descriptionLabel.text = transaction.description
-        timeLabel.text = transaction.time
         amountLabel.text = transaction.isIncome ? "+\(transaction.amount)" : "-\(transaction.amount)"
         amountLabel.textColor = transaction.isIncome ? .systemGreen : .systemRed
+
+        // 设置日期格式器
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm" // 或者任何您需要的格式
+        timeLabel.text = dateFormatter.string(from: transaction.date)
     }
+
     
     override func prepareForReuse() {
         super.prepareForReuse()

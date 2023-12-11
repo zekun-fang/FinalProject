@@ -9,11 +9,18 @@ struct Transaction_demo {
 }
 
 class TransactionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    private var allTransactions: [Transaction_demo] = []
-    private var monthTransactions: [Transaction_demo] = []
-    private var transactions: [Transaction_demo] {
-        return segmentedControl.selectedSegmentIndex == 0 ? monthTransactions : allTransactions
+    private var monthTransactions: [Transaction] = []
+    var transactionsFromDashboard: [Transaction] = []
+    private var transactions: [Transaction] {
+        return segmentedControl.selectedSegmentIndex == 0 ? monthTransactions : transactionsFromDashboard
     }
+    
+    enum SelectedSegment {
+            case month, all
+        }
+
+    var selectedSegment: SelectedSegment = .month
+
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -61,6 +68,14 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
         setupTableView()
         loadMockTransactions()
         self.navigationItem.title = "Transaction"
+        
+        // 根据 selectedSegment 设置分段控制器的选项
+        switch selectedSegment {
+        case .month:
+            segmentedControl.selectedSegmentIndex = 0
+        case .all:
+            segmentedControl.selectedSegmentIndex = 1
+        }
     }
 
     private func setupGradientBackground() {
@@ -84,6 +99,7 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.isScrollEnabled = true
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -95,27 +111,17 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     private func loadMockTransactions() {
-        // Mock transactions for demonstration
-        allTransactions = [
-            Transaction_demo(category: "Shopping", description: "Buy some grocery", amount: 5120, time: "10:00 AM", isIncome: false),
-            Transaction_demo(category: "Food", description: "Arabian Hut", amount: 532, time: "07:30 PM", isIncome: false),
-            Transaction_demo(category: "Salary", description: "Salary for August", amount: 5000, time: "04:30 PM", isIncome: true)
-        ]
+        // 获取当前月份
+        let currentMonth = Calendar.current.component(.month, from: Date())
 
-        // Example: Filter transactions for current month (assuming some logic here)
-        let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm a"
-            let currentMonth = Calendar.current.component(.month, from: Date())
-
-            monthTransactions = allTransactions.filter { transaction in
-                if let date = dateFormatter.date(from: transaction.time) {
-                    return Calendar.current.component(.month, from: date) == currentMonth
-                }
-                return false
-            }
+        monthTransactions = transactionsFromDashboard.filter { transaction in
+            // 比较交易日期的月份是否与当前月份相同
+            return Calendar.current.component(.month, from: transaction.date) == currentMonth
+        }
 
         tableView.reloadData()
     }
+
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

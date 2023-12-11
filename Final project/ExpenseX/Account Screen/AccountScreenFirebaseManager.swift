@@ -30,6 +30,9 @@ extension AccountInfoViewController{
                                 if let updatedImageURL = profilePhotoURL {
                                     self.delegate?.didUpdateProfilePhoto(updatedImageURL)
                                 }
+                                // After successfully uploading the profile photo and getting the new URL
+                                let newProfilePhotoURL = profilePhotoURL
+                                NotificationCenter.default.post(name: NSNotification.Name("ProfilePhotoUpdated"), object: nil, userInfo: ["profilePhotoURL": newProfilePhotoURL])
                             }
                         })
                     }
