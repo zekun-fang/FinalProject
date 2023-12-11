@@ -16,6 +16,7 @@
 		841AE1E22B26EC950049813A /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1E12B26EC950049813A /* Transaction.swift */; };
 		841AE1E52B26F4C20049813A /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1E42B26F4C20049813A /* AddTransactionView.swift */; };
 		841AE1E72B26F5270049813A /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1E62B26F5270049813A /* AddTransactionViewController.swift */; };
+		841AE1EA2B27802A0049813A /* CategoryStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AE1E92B27802A0049813A /* CategoryStat.swift */; };
 		84456ECC2B2483AF00400117 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84456ECB2B2483AF00400117 /* GoogleService-Info.plist */; };
 		84456ECF2B248E8D00400117 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84456ECE2B248E8D00400117 /* LoginView.swift */; };
 		84456ED12B248F4300400117 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84456ED02B248F4300400117 /* LoginViewController.swift */; };
@@ -69,6 +70,7 @@
 		841AE1E12B26EC950049813A /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		841AE1E42B26F4C20049813A /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
 		841AE1E62B26F5270049813A /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
+		841AE1E92B27802A0049813A /* CategoryStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryStat.swift; sourceTree = "<group>"; };
 		84456ECB2B2483AF00400117 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84456ECE2B248E8D00400117 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		84456ED02B248F4300400117 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +156,16 @@
 			path = "Add Transaction Screen";
 			sourceTree = "<group>";
 		};
+		841AE1E82B276F470049813A /* Statistics Screen */ = {
+			isa = PBXGroup;
+			children = (
+				85C67F2A2B223240007BC714 /* StatisticsViewController.swift */,
+				85C67F302B226D8C007BC714 /* ProgressRingView.swift */,
+				85A595692B2292DB00E1EA38 /* progress.swift */,
+			);
+			path = "Statistics Screen";
+			sourceTree = "<group>";
+		};
 		84456ECD2B248D5500400117 /* Login Screen */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +208,7 @@
 				85C67F252B220519007BC714 /* Transaction Screen */,
 				841AE1E32B26EE840049813A /* Add Transaction Screen */,
 				841AE1D12B25A96E0049813A /* Profile Screen */,
+				841AE1E82B276F470049813A /* Statistics Screen */,
 				841AE1D22B25B3060049813A /* Account Screen */,
 				84C2E1EA2B0AF16E00B47C27 /* AppDelegate.swift */,
 				84C2E1EC2B0AF16E00B47C27 /* SceneDelegate.swift */,
@@ -233,6 +246,7 @@
 			children = (
 				841AE1E12B26EC950049813A /* Transaction.swift */,
 				84C2E2422B0C19D400B47C27 /* Contact.swift */,
+				841AE1E92B27802A0049813A /* CategoryStat.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -299,9 +313,6 @@
 				8535B34A2B2103100063BD26 /* DashboardView.swift */,
 				85E744B72B21EE4200A929A7 /* TransactionCardView.swift */,
 				85C67F232B21FEC3007BC714 /* FinancialEntryView.swift */,
-				85C67F2A2B223240007BC714 /* StatisticsViewController.swift */,
-				85C67F302B226D8C007BC714 /* ProgressRingView.swift */,
-				85A595692B2292DB00E1EA38 /* progress.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,6 +436,7 @@
 				84C2E1ED2B0AF16E00B47C27 /* SceneDelegate.swift in Sources */,
 				84456ED12B248F4300400117 /* LoginViewController.swift in Sources */,
 				85C67F242B21FEC3007BC714 /* FinancialEntryView.swift in Sources */,
+				841AE1EA2B27802A0049813A /* CategoryStat.swift in Sources */,
 				84C2E23A2B0C134900B47C27 /* MainScreenView.swift in Sources */,
 				84C2E25B2B0C2F9400B47C27 /* RegisterProgressIndicatorManager.swift in Sources */,
 				841AE1E22B26EC950049813A /* Transaction.swift in Sources */,

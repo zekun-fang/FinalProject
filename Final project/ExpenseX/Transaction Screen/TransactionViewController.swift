@@ -1,12 +1,6 @@
 import UIKit
-
-struct Transaction_demo {
-    let category: String
-    let description: String
-    let amount: Double
-    let time: String
-    let isIncome: Bool
-}
+import FirebaseAuth
+import FirebaseFirestore
 
 class TransactionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private var monthTransactions: [Transaction] = []
@@ -20,6 +14,10 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
         }
 
     var selectedSegment: SelectedSegment = .month
+    
+    var handleAuth: AuthStateDidChangeListenerHandle?
+    var currentUser: FirebaseAuth.User?
+    let database = Firestore.firestore()
 
     
     private let titleLabel: UILabel = {
@@ -159,4 +157,43 @@ class TransactionsViewController: UIViewController, UITableViewDataSource, UITab
         view.backgroundColor = .clear
         return view
     }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // 1. 获取要删除的交易
+            let transactionToDelete = transactions[indexPath.section]
+
+            // 2. 删除 Firestore 中的交易
+            deleteTransactionFromFirestore(transactionToDelete)
+
+            // 3. 从数据源中移除
+            transactionsFromDashboard.remove(at: indexPath.section)
+
+            // 4. 删除表格视图中的对应行
+            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .automatic)
+
+            // 5. 提供用户反馈
+            showDeletionFeedback()
+        }
+    }
+    
+    private func deleteTransactionFromFirestore(_ transaction: Transaction) {
+        guard let userEmail = currentUser?.email, let transactionId = transaction.id else { return }
+
+        database.collection("users").document(userEmail).collection("transactions").document(transactionId).delete() { error in
+            if let error = error {
+                // 处理删除时出现的错误
+                print("Error removing document: \(error)")
+            } else {
+                // 处理成功删除的情况
+                print("Document successfully removed!")
+            }
+        }
+    }
+    
+    private func showDeletionFeedback() {
+        let alert = UIAlertController(title: "Deleted", message: "The transaction has been successfully deleted.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

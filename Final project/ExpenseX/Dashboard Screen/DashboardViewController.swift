@@ -220,19 +220,52 @@ class DashboardViewController: UIViewController, UITabBarDelegate {
         private func navigateToTransactions() {
             let transactionVC = TransactionsViewController()
             transactionVC.transactionsFromDashboard = self.transactions // 传递交易数据
+            transactionVC.currentUser = self.currentUser
             navigationController?.pushViewController(transactionVC, animated: true)
         }
 
 
-        private func navigateToStatistics() {
-            let statsVC = StatisticViewController() // 用您的 'Statistics' 视图控制器替换
-            navigationController?.pushViewController(statsVC, animated: true)
+        func navigateToStatistics() {
+            let statisticVC = StatisticViewController()
+            
+            let (expenseStats, incomeStats) = calculateCategoryStats()
+            
+            statisticVC.expenseStats = expenseStats
+            statisticVC.incomeStats = incomeStats
+            
+            statisticVC.accountBalance = dashboardView.accountBalanceLabel.text
+            navigationController?.pushViewController(statisticVC, animated: true)
         }
+
 
         private func navigateToProfile() {
             let profileVC = ProfileViewController() // 用您的 'Profile' 视图控制器替换
             navigationController?.pushViewController(profileVC, animated: true)
         }
+    
+    func calculateCategoryStats() -> ([CategoryStat], [CategoryStat]) {
+        var expenseStats: [String: Double] = [:]
+        var incomeStats: [String: Double] = [:]
+
+        // 累计每个类别的支出和收入
+        for transaction in transactions {
+            if transaction.isIncome {
+                incomeStats[transaction.category, default: 0] += transaction.amount
+            } else {
+                expenseStats[transaction.category, default: 0] += transaction.amount
+            }
+        }
+
+        // 计算支出和收入的总额
+        let totalExpenses = expenseStats.values.reduce(0, +)
+        let totalIncome = incomeStats.values.reduce(0, +)
+
+        // 创建统计数组
+        let expenseCategoryStats = expenseStats.map { CategoryStat(category: $0.key, amount: $0.value, progress: Float($0.value / totalExpenses)) }
+        let incomeCategoryStats = incomeStats.map { CategoryStat(category: $0.key, amount: $0.value, progress: Float($0.value / totalIncome)) }
+
+        return (expenseCategoryStats, incomeCategoryStats)
+    }
     
     private func fetchTransactions() {
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in

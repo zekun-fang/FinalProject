@@ -2,6 +2,31 @@ import UIKit
 
 class ProgressRingView: UIView {
 
+    // 新属性：存储每个类别的金额
+    var categoryAmounts: [String: Double] = [:]
+    var totalAmount: Double = 0
+    
+    // 新方法：设置类别和金额
+    func setCategoryAmounts(_ amounts: [String: Double]) {
+        self.categoryAmounts = amounts
+        self.totalAmount = amounts.values.reduce(0, +)
+        updateProgress()
+    }
+    
+    // 新方法：根据类别的金额更新进度环的比例
+    private func updateProgress() {
+        // 示例：计算每个类别的金额占总金额的比例
+        let sortedAmounts = categoryAmounts.sorted { $0.value > $1.value }
+        let firstAmount = sortedAmounts.first?.value ?? 0
+        let secondAmount = sortedAmounts.dropFirst().first?.value ?? 0
+
+        progress1 = CGFloat(firstAmount / totalAmount)
+        progress2 = CGFloat(secondAmount / totalAmount)
+
+        // 触发重绘
+        setNeedsDisplay()
+    }
+    
     var ringWidth: CGFloat = 20.0
     var progress1: CGFloat = 0.4 // first segment percentage
     var progress2: CGFloat = 0.35 // second segment percentage
@@ -17,7 +42,7 @@ class ProgressRingView: UIView {
     // Create a label for the amount
     private let amountLabel: UILabel = {
         let label = UILabel()
-        label.text = "₹ 9400.0"
+//        label.text = "$ 9400.0"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
